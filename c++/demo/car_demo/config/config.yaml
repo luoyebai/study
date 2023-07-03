@@ -1,0 +1,31 @@
+%YAML:1.0
+---
+# choose between using a camera or video
+# camera list(0,1,2,3,4...) or video(-1)
+use_camera: -1
+# serial
+baud_rate: 9600
+uart_device: "/dev/ttyUSB"
+# debug use
+show_src_img: 0
+show_red_img: 0
+show_green_img: 0
+show_binary_img: 1
+show_result_img: 1
+# this is cilcle config
+circle_threshold: 50
+# this is arrow config
+arrow_threshold: 40
+min_ratio: 1.2
+max_ratio: 2.5
+arrow_min_area: 100
+# this is line config
+line_threshold: 80
+line_min_area: 2000
+# !unuse
+min_h: 68
+min_s: 10
+min_v: 40
+max_h: 113
+max_s: 74
+max_v: 74

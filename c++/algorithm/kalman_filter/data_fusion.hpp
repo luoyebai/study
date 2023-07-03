@@ -9,7 +9,9 @@
  *
  * @tparam T    data type
  */
-template <typename T> struct ZData {
+template <typename T>
+struct ZData
+{
     T data;
     T sigma;
 };
@@ -22,15 +24,18 @@ template <typename T> struct ZData {
  * @param datas all data
  * @return best data---result
  */
-template <typename T> ZData<T> DataFusion(std::vector<ZData<T>> datas) {
+template <typename T>
+ZData<T> DataFusion(std::vector<ZData<T>> datas)
+{
 
     double k;
     ZData<T> result = ZData<T>();
     ZData<T> pre_data = datas[0];
     bool is_frist = true;
-    for (auto &i : datas) {
-
-        if (is_frist) {
+    for (auto &i : datas)
+    {
+        if (is_frist)
+        {
             is_frist = false;
             continue;
         }

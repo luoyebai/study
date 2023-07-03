@@ -1,0 +1,4 @@
+/home/luoyebai/code/study/c++/algorithm/opengl/build/CMakeFiles/test.dir
+/home/luoyebai/code/study/c++/algorithm/opengl/build/CMakeFiles/imguigl3.dir
+/home/luoyebai/code/study/c++/algorithm/opengl/build/CMakeFiles/edit_cache.dir
+/home/luoyebai/code/study/c++/algorithm/opengl/build/CMakeFiles/rebuild_cache.dir

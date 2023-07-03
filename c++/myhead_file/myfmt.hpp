@@ -25,7 +25,7 @@ constexpr void PrintReplace(std::string &str, Args &&...args) noexcept {
     (F(args), ...);
     return;
 }
-auto operator""_f(const char *str, size_t size) noexcept {
+inline auto operator""_f(const char *str, size_t size) noexcept {
 
     return [str, size](auto... args) {
         std::string strResult = std::string(str, size);
@@ -35,5 +35,6 @@ auto operator""_f(const char *str, size_t size) noexcept {
     };
 }
 
-} // namespace my
+}
+ // namespace my
 #endif

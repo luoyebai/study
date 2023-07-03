@@ -1,0 +1,8 @@
+[requires]
+eigen/3.3.7
+pybind11/2.7.1
+glfw/3.3.6
+glew/2.1.0
+
+[generators]
+cmake

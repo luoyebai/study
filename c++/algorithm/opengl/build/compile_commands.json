@@ -1,0 +1,52 @@
+[
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w -isystem /usr/local/include/opencv4  -O0 -Wall -g2 -ggdb -o CMakeFiles/test.dir/main.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/main.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/main.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w -isystem /usr/local/include/opencv4  -O0 -Wall -g2 -ggdb -o CMakeFiles/test.dir/imgui/imgui.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w -isystem /usr/local/include/opencv4  -O0 -Wall -g2 -ggdb -o CMakeFiles/test.dir/imgui/imgui_demo.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui_demo.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui_demo.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w -isystem /usr/local/include/opencv4  -O0 -Wall -g2 -ggdb -o CMakeFiles/test.dir/imgui/imgui_draw.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui_draw.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui_draw.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w -isystem /usr/local/include/opencv4  -O0 -Wall -g2 -ggdb -o CMakeFiles/test.dir/imgui/imgui_tables.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui_tables.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui_tables.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w -isystem /usr/local/include/opencv4  -O0 -Wall -g2 -ggdb -o CMakeFiles/test.dir/imgui/imgui_widgets.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui_widgets.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/imgui_widgets.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w -isystem /usr/local/include/opencv4  -O0 -Wall -g2 -ggdb -o CMakeFiles/test.dir/imgui/backends/imgui_impl_glfw.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends/imgui_impl_glfw.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends/imgui_impl_glfw.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w -isystem /usr/local/include/opencv4  -O0 -Wall -g2 -ggdb -o CMakeFiles/test.dir/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends/imgui_impl_opengl3.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends/imgui_impl_opengl3.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w  -O0 -Wall -g2 -ggdb -o CMakeFiles/imguigl3.dir/imgui/backends/imgui_impl_glfw.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends/imgui_impl_glfw.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends/imgui_impl_glfw.cpp"
+},
+{
+  "directory": "/home/luoyebai/code/study/c++/algorithm/opengl/build",
+  "command": "/usr/bin/g++ -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends -I/home/luoyebai/code/study/c++/algorithm/opengl/imgui/examples/libs/gl3w  -O0 -Wall -g2 -ggdb -o CMakeFiles/imguigl3.dir/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends/imgui_impl_opengl3.cpp",
+  "file": "/home/luoyebai/code/study/c++/algorithm/opengl/imgui/backends/imgui_impl_opengl3.cpp"
+}
+]
