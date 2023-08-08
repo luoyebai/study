@@ -20,10 +20,8 @@
 // log
 #include "log/log.hpp"
 
-// 可以存放任意类型的动态容器
+// 可以存放任意类型的动态容器,用于实现话题指针容器类
 using VecAny = std::vector<std::any>;
-// 存放所有的话题指针
-static VecAny topic_ptrs_vec;
 
 /**
  * @brief 将普通的数据类型带上时间戳信息
@@ -249,6 +247,90 @@ template <typename T> class Topic {
 template <typename T> using TopicPtr = typename Topic<T>::ShartPtr;
 
 /**
+ * @brief 话题指针容器类,即订阅者发布者的通讯组件,目前使用static变量实现
+ *
+ */
+class VecTopicPtr {
+  public:
+    /**
+     * @brief 添加新的话题指针
+     *
+     * @tparam T 话题的容器类型
+     * @param data 新的话题指针
+     */
+    template <typename T> static void addTopicPtr(const TopicPtr<T> &data) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        std::any var = data;
+        topic_ptr_vec_.push_back(var);
+        return;
+    }
+
+    /**
+     * @brief 找到对应名字的话题指针
+     *
+     * @tparam T 同上
+     * @param name 话题名
+     * @return auto 返回话题指针(没找到则为nullptr)
+     */
+    template <typename T> static auto findTopicPtr(const std::string &name) {
+        TopicPtr<T> result_topic_ptr = nullptr;
+        std::lock_guard<std::mutex> lock(mutex_);
+        for (auto &var : topic_ptr_vec_) {
+            // 类型不同
+            if (var.type() != typeid(result_topic_ptr))
+                continue;
+            try {
+                result_topic_ptr = std::any_cast<TopicPtr<T>>(var);
+            } catch (std::exception &e) {
+                logError('<', name, '>', "话题指针查找发生异常:", e.what());
+                continue;
+            }
+            if (result_topic_ptr->getName() == name)
+                return result_topic_ptr;
+        }
+        TopicPtr<T> null_ptr = nullptr;
+        return null_ptr;
+    }
+
+    /**
+     * @brief 删除对应名字的话题指针
+     *
+     * @tparam T 同上
+     * @param name 同上
+     * @return true 找到话题并删除
+     * @return false 没有找到话题
+     */
+    template <typename T> static bool removeTopicPtr(const std::string &name) {
+        TopicPtr<T> result_topic_ptr = nullptr;
+        std::lock_guard<std::mutex> lock(mutex_);
+        for (auto it = topic_ptr_vec_.begin(); it != topic_ptr_vec_.end();
+             ++it) {
+            // 类型不同
+            if (it->type() != typeid(result_topic_ptr))
+                continue;
+            try {
+                result_topic_ptr = std::any_cast<TopicPtr<T>>(*it);
+            } catch (std::exception &e) {
+                logError('<', name, '>', "话题指针移除发生异常:", e.what());
+                continue;
+            }
+            if (result_topic_ptr->getName() != name)
+                continue;
+            it = topic_ptr_vec_.erase(it);
+            return true;
+        }
+        return false;
+    }
+
+  private:
+    static VecAny topic_ptr_vec_;
+    static std::mutex mutex_;
+};
+// static的外部定义
+VecAny VecTopicPtr::topic_ptr_vec_;
+std::mutex VecTopicPtr::mutex_;
+
+/**
  * @brief 订阅者发布者的基类
  *
  * @tparam T 订阅/发布的数据类型
@@ -275,6 +357,9 @@ template <typename T> class BasePubSub {
         if (topic_ptr_->pubs_num <= 0 && topic_ptr_->subs_num <= 0)
             topicPtrRemove();
     }
+
+    // 当前订阅到的数据时间戳
+    timeval now_time_stamp;
 
     /**
      * @brief 基础的回调模式,在死循环内进行回调
@@ -349,29 +434,14 @@ template <typename T> class BasePubSub {
      *
      */
     inline void topicPtrInit() {
-        std::mutex mutex;
-        std::lock_guard<std::mutex> lock(mutex);
-        // 在话题指针容器内查找
-        for (const auto &var : topic_ptrs_vec) {
-            // 构造临时指针
-            TopicPtr<T> tmp_topic_ptr;
-            // 类型不同
-            if (var.type() != typeid(tmp_topic_ptr))
-                continue;
-
-            try {
-                tmp_topic_ptr = std::any_cast<TopicPtr<T>>(var);
-            } catch (std::exception &e) {
-                logError(getLogger(), "话题指针初始化发生异常:", e.what());
-                continue;
-            }
-            // 话题名字不同
-            if (tmp_topic_ptr->getName() != topic_name_)
-                continue;
-            topic_ptr_ = tmp_topic_ptr;
+        topic_ptr_ = VecTopicPtr::findTopicPtr<T>(getTopicName());
+        if (topic_ptr_ != nullptr) {
+            logDebug(getLogger(), "找到对应话题,初始化完毕");
+            return;
         }
-        if (topic_ptr_ != nullptr)
-            logDebug(getLogger(), "初始化完毕");
+        topic_ptr_ = std::make_shared<Topic<T>>(getTopicName());
+        VecTopicPtr::addTopicPtr<T>(topic_ptr_);
+        logDebug(getLogger(), "未找到目标话题,创建对应话题,初始化完毕");
         return;
     }
 
@@ -382,24 +452,8 @@ template <typename T> class BasePubSub {
      *
      */
     inline void topicPtrRemove() {
-        std::mutex mutex;
-        std::lock_guard<std::mutex> lock(mutex);
         logDebug(getLogger(), "订阅者和发布者都已注销,该话题将被删除");
-        for (auto it = topic_ptrs_vec.begin(); it != topic_ptrs_vec.end();
-             ++it) {
-            if (it->type() != typeid(TopicPtr<T>))
-                continue;
-            TopicPtr<T> topic_ptr;
-            try {
-                topic_ptr = std::any_cast<TopicPtr<T>>(*it);
-            } catch (std::exception &e) {
-                logError(getLogger(), "话题指针移除发生异常:", e.what());
-                continue;
-            }
-            if (topic_ptr->getName() != name_)
-                continue;
-            it = topic_ptrs_vec.erase(it);
-        }
+        VecTopicPtr::removeTopicPtr<T>(getTopicName());
         return;
     }
 

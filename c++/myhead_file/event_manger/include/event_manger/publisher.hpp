@@ -32,14 +32,6 @@ template <typename T> class Publisher : public BasePubSub<T> {
     explicit Publisher(const std::string &pub_name,
                        const std::string &topic_name, size_t queue_size = 1e3)
         : BasePubSub<T>(pub_name, topic_name), queue_size_(queue_size) {
-        // 话题指针为空
-        if (topic_ptr_ == nullptr) {
-            // 构造新的话题
-            topic_ptr_ = std::make_shared<Topic<T>>(topic_name);
-            std::any var = topic_ptr_;
-            topic_ptrs_vec.push_back(var);
-            logDebug(getLogger(), "初始化完毕");
-        }
         // 该话题发布者计数器加1
         ++topic_ptr_->pubs_num;
     }
@@ -52,6 +44,17 @@ template <typename T> class Publisher : public BasePubSub<T> {
         --topic_ptr_->pubs_num;
         logDebug(getLogger(), "停止话题数据发布");
     }
+
+    // 当前发布的数据时间戳
+    using BasePubSub<T>::now_time_stamp;
+
+    /**
+     * @brief 基类函数
+     *
+     */
+    using BasePubSub<T>::getName;
+    using BasePubSub<T>::getTopicName;
+    using BasePubSub<T>::getLogger;
 
     /**
      * @brief 构造一个新的发布者同时返回指向其的指针
@@ -82,14 +85,6 @@ template <typename T> class Publisher : public BasePubSub<T> {
     }
 
     /**
-     * @brief 基类函数
-     *
-     */
-    using BasePubSub<T>::getName;
-    using BasePubSub<T>::getTopicName;
-    using BasePubSub<T>::getLogger;
-
-    /**
      * @brief 向话题容器中放入数据
      *
      * @param data 数据----放入话题容器中
@@ -105,8 +100,9 @@ template <typename T> class Publisher : public BasePubSub<T> {
             count_ = 0;
         }
 
+        gettimeofday(&now_time_stamp, nullptr);
         // 初始化话题数据
-        AnyData<T> new_topic_data{timer_.time_now, data};
+        AnyData<T> new_topic_data{now_time_stamp, data};
         // 通过话题指针发布数据
         topic_ptr_->pushData(new_topic_data);
         // 重置容器内数据大小

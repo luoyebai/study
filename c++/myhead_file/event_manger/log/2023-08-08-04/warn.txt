@@ -1,0 +1,189 @@
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:25:43.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:25:43.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:25:43.
+----------------编译日期:04:25:39 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:25:55.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:25:55.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:25:55.
+----------------编译日期:04:25:39 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:27:42.
+----------------编译日期:04:27:38 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:27:49.
+----------------编译日期:04:27:38 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:27:52.
+----------------编译日期:04:27:38 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:28:15.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:28:15.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:28:15.
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:28:17.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:28:17.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:28:17.
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:28:21.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:28:21.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:28:21.
+----------------编译日期:04:28:12 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:28:22.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:28:22.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:28:22.
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:32:02.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:32:02.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:32:02.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:32:03.
+----------------编译日期:04:31:58 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:32:59.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:32:59.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:32:59.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:33:00.
+----------------编译日期:04:31:58 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:33:03.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:03.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:03.
+----------------编译日期:04:31:58 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:33:04.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:05.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:05.
+----------------编译日期:04:31:58 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:33:05.
+----------------编译日期:04:31:58 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:33:06.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:06.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:06.
+----------------编译日期:04:31:58 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:33:08.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:08.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:08.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:33:09.
+----------------编译日期:04:31:58 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:33:18.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:18.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:33:18.
+----------------编译日期:04:31:58 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:36:30.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:36:30.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:36:30.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:36:31.
+----------------编译日期:04:36:27 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:36:32.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:36:32.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:36:32.
+----------------编译日期:04:36:27 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:36:34.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:36:34.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:36:34.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:36:35.
+----------------编译日期:04:36:27 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:42:41.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:42:41.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:42:41.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:42:41.
+----------------编译日期:04:42:38 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:42:42.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:42:42.
+----------------编译日期:04:42:38 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:42:50.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:42:50.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:42:50.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:42:50.
+----------------编译日期:04:42:38 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:43:07.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:43:07.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:43:07.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:43:07.
+----------------编译日期:04:42:38 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:44:14.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:44:14.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:44:14.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:44:14.
+----------------编译日期:04:44:11 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:45:19.
+----------------编译日期:04:45:16 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:45:47.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:45:47.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:45:47.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:45:48.
+----------------编译日期:04:45:44 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:46:55.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:46:55.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:46:55.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:46:55.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:46:56.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:10	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:46:56.
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:46:58.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:46:58.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:46:58.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:46:58.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:46:58.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:10	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:46:58.
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:47:00.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:47:00.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:47:00.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:47:00.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:47:00.
+[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:10	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:47:00.
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:48:17.
+----------------编译日期:04:48:14 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:48:18.
+----------------编译日期:04:48:14 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:48:19.
+----------------编译日期:04:48:14 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:48:20.
+----------------编译日期:04:48:14 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:49:14.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:49:14.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:49:14.
+----------------编译日期:04:49:11 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:49:24.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:49:24.
+[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:49:24.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:25.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:25.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:25.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:25.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:25.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:25.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:25.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:25.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:26.
+[WARN]	<订阅者1号/话题测试>还没有相应发布者,等待0.10s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:49:27.
+----------------编译日期:04:49:11 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:50:08.
+----------------编译日期:04:50:05 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:53:32.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:32.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:33.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:33.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:34.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:34.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:35.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:35.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:36.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:36.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:37.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:37.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:38.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:38.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:39.
+[WARN]	<订阅者2号/另一个话题>还没有相应发布者,等待0.50s	include/event_manger/subscriber.hpp:33	Subscriber<T>::Subscriber(const std::string&, const std::string&, double) [with T = std::__cxx11::basic_string<char>; std::string = std::__cxx11::basic_string<char>]	2023-08-08 04:53:39.
+----------------编译日期:04:53:29 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:54:41.
+[WARN]	<另一个话题>没有发布者发布数据,容器内数据仅剩:0	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:54:41.
+----------------编译日期:04:54:38 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:57:03.
+[WARN]	<另一个话题>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:57:03.
+[WARN]	<另一个话题>没有发布者发布数据,容器内数据仅剩:10	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:57:03.
+----------------编译日期:04:56:57 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:57:35.
+----------------编译日期:04:56:57 Aug  9 2023	最后修改者[洛叶白]----------------
+[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 04:57:36.
+[WARN]	<另一个话题>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 04:57:36.
+[WARN]	<另一个话题>没有发布者发布数据,容器内数据仅剩:10	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 04:57:36.
+----------------编译日期:04:56:57 Aug  9 2023	最后修改者[洛叶白]----------------

@@ -28,34 +28,35 @@
 // log sys
 #include "log_system.hpp"
 
-static std::mutex log_sys_mutex;
-static std::shared_ptr<LogSystem> log_system = nullptr;
+static auto log_system = LogSystem::getInstance();
 
+/**
+ * @brief log类宏,用来打印信息
+ * LOG宏为其他log宏的基础
+ * 7类log宏,等级依次上升,Fatal会退出程序
+ * dlog保证任何等级日志下都能看到数据通常不要使用
+ */
 #define LOG(MODE, ...)                                                         \
     log_system->logMsg(MODE, __PRETTY_FUNCTION__, __FILE__, __LINE__,          \
                        ##__VA_ARGS__)
-
 #define logUnknow(...) LOG(KUNKNOW, ##__VA_ARGS__)
 #define logDebug(...) LOG(KDEBUG, ##__VA_ARGS__)
 #define logInfo(...) LOG(KINFO, ##__VA_ARGS__)
 #define logWarn(...) LOG(KWARN, ##__VA_ARGS__)
 #define logError(...) LOG(KERROR, ##__VA_ARGS__)
 #define logFatal(...) LOG(KFATAL, ##__VA_ARGS__)
-#define logExit(...) LOG(KFATAL + 1, ##__VA_ARGS__)
-// 默认log----当前等级
 #define dlog(...) LOG(log_system->log_level, ##__VA_ARGS__)
 
+/**
+ * @brief 日志系统初始化
+ *
+ * @param name 本次修改代码者的名字
+ * @param dir_path 日志目录路径/可选----默认放在父级目录下
+ * @param level 日志等级/可选----默认INFO及以上
+ * @param clear_timing 日志清理时间间隔/可选----默认3天(单位:h)
+ */
 void logSystemInit(const std::string &name, const std::string &dir_path = "../",
                    uint8_t level = 0, uint32_t clear_timing = 72) {
-
-    if (log_system == nullptr) {
-        std::lock_guard<std::mutex> lock(log_sys_mutex);
-        if (log_system == nullptr) {
-            auto temp = std::shared_ptr<LogSystem>(new LogSystem());
-            log_system = temp;
-        }
-    }
-
     namespace fs = std::filesystem;
     using namespace std::chrono_literals;
 
@@ -63,7 +64,7 @@ void logSystemInit(const std::string &name, const std::string &dir_path = "../",
     std::array<int, 4> ymdh{
         log_system->getInitTime(KYEAR), log_system->getInitTime(KMOON),
         log_system->getInitTime(KMDAY), log_system->getInitTime(KHOUR)};
-
+    // 月日时,若只有个位则在十位添加0
     std::array<std::string, 4> ymdh_str;
     for (size_t i = 0; i < 4; ++i) {
         ymdh_str[i] = std::to_string(ymdh[i]);
@@ -71,6 +72,7 @@ void logSystemInit(const std::string &name, const std::string &dir_path = "../",
             ymdh_str[i] = '0' + ymdh_str[i];
     }
 
+    // 日志路径初始化
     std::string log_dir_path =
         (*--dir_path.end() != '/') ? dir_path + '/' : dir_path;
 
@@ -96,6 +98,7 @@ void logSystemInit(const std::string &name, const std::string &dir_path = "../",
     if (!fs::exists(log_dir_path))
         fs::create_directories(log_dir_path);
 
+    // 日志系统属性赋值
     log_system->author = name;
     log_system->dir_path = log_dir_path;
     log_system->log_level = (level > KMODE_MAX) ? KMODE_MAX : level;

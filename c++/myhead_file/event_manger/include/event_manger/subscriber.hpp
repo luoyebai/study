@@ -24,15 +24,10 @@ template <typename T> class Subscriber : public BasePubSub<T> {
                         const std::string &topic_name, double sleep_time = 0.)
         : BasePubSub<T>(sub_name, topic_name) {
         while (1) {
-            // 在基类构造时找到话题
-            if (topic_ptr_ != nullptr) {
+            if (!(sleep_time > 0. && topic_ptr_->pubs_num <= 0))
                 break;
-            }
-            if (sleep_time > 0.)
-                logWarn(getLogger(), "还没有相应发布者,等待", sleep_time, 's');
+            logWarn(getLogger(), "还没有相应发布者,等待", sleep_time, 's');
             sleep(sleep_time);
-            // 重新初始化
-            topicPtrInit();
         }
         // 该话题订阅者计数器加1
         ++topic_ptr_->subs_num;
@@ -47,8 +42,8 @@ template <typename T> class Subscriber : public BasePubSub<T> {
         logDebug(getLogger(), "退出话题订阅");
     }
 
-    // 订阅到的数据时间戳
-    timeval temp_time_stamp;
+    // 当前订阅到的数据时间戳
+    using BasePubSub<T>::now_time_stamp;
 
     /**
      * @brief 构造一个新的订阅者同时返回指向其的指针
@@ -102,7 +97,7 @@ template <typename T> class Subscriber : public BasePubSub<T> {
         }
 
         auto topic_data = topic_ptr_->popData();
-        temp_time_stamp = topic_data.time_stamp;
+        now_time_stamp = topic_data.time_stamp;
         return topic_data.data;
     }
 
