@@ -260,7 +260,13 @@ class VecTopicPtr {
      */
     template <typename T> static void addTopicPtr(const TopicPtr<T> &data) {
         std::lock_guard<std::mutex> lock(mutex_);
-        std::any var = data;
+        std::any var;
+        try {
+            var = data;
+        } catch (std::exception &e) {
+            logError('<', data->getName(), '>',
+                     "话题指针添加发生异常:", e.what());
+        }
         topic_ptr_vec_.push_back(var);
         return;
     }

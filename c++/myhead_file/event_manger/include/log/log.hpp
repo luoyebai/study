@@ -37,7 +37,7 @@ static auto log_system = LogSystem::getInstance();
  * dlog保证任何等级日志下都能看到数据通常不要使用
  */
 #define LOG(MODE, ...)                                                         \
-    log_system->logMsg(MODE, __PRETTY_FUNCTION__, __FILE__, __LINE__,          \
+    log_system->addMsg(MODE, __PRETTY_FUNCTION__, __FILE__, __LINE__,          \
                        ##__VA_ARGS__)
 #define logUnknow(...) LOG(KUNKNOW, ##__VA_ARGS__)
 #define logDebug(...) LOG(KDEBUG, ##__VA_ARGS__)
@@ -102,6 +102,7 @@ void logSystemInit(const std::string &name, const std::string &dir_path = "../",
     log_system->author = name;
     log_system->dir_path = log_dir_path;
     log_system->log_level = (level > KMODE_MAX) ? KMODE_MAX : level;
+    log_system->run();
 }
 
 #endif // !INCLUDE__LOG__HPP
