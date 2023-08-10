@@ -13,7 +13,6 @@
 #define INCLUDE__LOG__HPP
 
 // std
-#include <chrono>
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
@@ -46,6 +45,13 @@ static auto log_system = LogSystem::getInstance();
 #define logError(...) LOG(KERROR, ##__VA_ARGS__)
 #define logFatal(...) LOG(KFATAL, ##__VA_ARGS__)
 #define dlog(...) LOG(log_system->log_level, ##__VA_ARGS__)
+// 缩写
+#define logu(...) logUnknow(__VA_ARGS__)
+#define logd(...) logDebug(__VA_ARGS__)
+#define logi(...) logInfo(__VA_ARGS__)
+#define logw(...) logWarn(__VA_ARGS__)
+#define loge(...) logError(__VA_ARGS__)
+#define logf(...) logFatal(__VA_ARGS__)
 
 /**
  * @brief 日志系统初始化
@@ -56,7 +62,8 @@ static auto log_system = LogSystem::getInstance();
  * @param clear_timing 日志清理时间间隔/可选----默认3天(单位:h)
  */
 void logSystemInit(const std::string &name, const std::string &dir_path = "../",
-                   uint8_t level = 0, uint32_t clear_timing = 72) {
+                   uint8_t level = 0, uint32_t clear_timing = 72,
+                   size_t data_max_len = 100) {
     namespace fs = std::filesystem;
     using namespace std::chrono_literals;
 
@@ -102,6 +109,7 @@ void logSystemInit(const std::string &name, const std::string &dir_path = "../",
     log_system->author = name;
     log_system->dir_path = log_dir_path;
     log_system->log_level = (level > KMODE_MAX) ? KMODE_MAX : level;
+    log_system->data_max_len = data_max_len;
     log_system->run();
 }
 

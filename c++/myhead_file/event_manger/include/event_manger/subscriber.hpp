@@ -91,8 +91,7 @@ template <typename T> class Subscriber : public BasePubSub<T> {
         ++count_;
         if (one_sec_timer_.is_time_ok && is_update_timer) {
             logDebug(getLogger(),
-                     "接收数据频率:", count_ / one_sec_timer_.diff_time,
-                     " Hz\t");
+                     "接收数据频率:", count_ / one_sec_timer_.diff_time, " Hz");
             count_ = 0;
         }
 

@@ -14,11 +14,10 @@
 
 // std
 #include <array>
-#include <chrono>
 #include <cstdint>
+#include <ctime>
 #include <deque>
 #include <fstream>
-#include <future>
 #include <iomanip>
 #include <ios>
 #include <iostream>
@@ -87,6 +86,10 @@ class LogSystem {
     LogSystem &operator=(LogSystem &&) = delete;
     LogSystem &operator=(const LogSystem &) = delete;
 
+    // mode file fun time
+    std::array<bool, 4> log_mode{1, 0, 0, 1};
+    size_t data_max_len = 100;
+
     /**
      * @brief 获取实例
      *
@@ -107,10 +110,18 @@ class LogSystem {
             auto file_path = dir_path + file_name;
             std::ofstream out_file;
             out_file.open(file_path, std::ios::out | std::ios::app);
-            out_file << "----------------";
-            out_file << "编译日期:" << __TIME__ << " " << __DATE__;
-            out_file << "\t最后修改者[" << author << "]";
-            out_file << "----------------\n";
+            std::string str;
+            str += "编译日期";
+            str += __TIME__;
+            str += __DATE__;
+            str += "\t最后修改者:[" + author + ']';
+            const int total_w = data_max_len + 180;
+            const int left_w = (total_w - str.length()) / 2;
+            const int right_w = total_w - left_w - str.length();
+            out_file << std::setw(left_w) << std::setfill('x') << "";
+            out_file << str;
+            out_file << std::setw(right_w) << std::setfill('x') << "";
+            out_file << "\n\n";
             out_file.close();
         }
     }
@@ -124,6 +135,26 @@ class LogSystem {
 
     // 日志系统异步运行
     void run() {
+        for (const auto &file_name : file_names_) {
+            auto file_path = dir_path + file_name;
+            std::ofstream out_file;
+            out_file.open(file_path, std::ios::out | std::ios::app);
+            out_file << '/' << std::setfill('x')
+                     << std::setw(data_max_len / 2 + 1) << "信息"
+                     << std::setw(data_max_len / 2 - 1) << ""
+                     << "\\";
+            out_file << '/' << std::setfill('x') << std::setw(26) << "文件"
+                     << std::setw(24) << ""
+                     << "\\";
+            out_file << '/' << std::setfill('x') << std::setw(51) << "函数"
+                     << std::setw(49) << ""
+                     << "\\";
+            out_file << '/' << std::setfill('x') << std::setw(11) << "时间"
+                     << std::setw(9) << ""
+                     << "\\";
+            out_file << "\n";
+            out_file.close();
+        }
         auto run_f = [&]() {
             // std::unique_lock<std::mutex> lock(mutex_);
             while (1) {
@@ -211,7 +242,7 @@ class LogSystem {
 
 #ifndef CLOSE_COLOR
     // 模式对应的字体颜色
-    std::array<uint, KMODE_MAX + 1> modes_{0, 32, 34, 33, 31, 41};
+    std::array<uint, KMODE_MAX + 1> modes_{34, 32, 0, 33, 31, 41};
 #endif // !CLOSE_COLOR
 
     // 模式对应开头
@@ -255,32 +286,43 @@ class LogSystem {
      *
      * @return string 返回的字符串结果
      */
-    inline std::string format(const Msg &msg) {
+    inline std::string format(const Msg &msg, bool is_mode = true,
+                              bool is_file = true, bool is_fun = true,
+                              bool is_time = true) {
         std::stringstream ss;
 
-#ifndef NOT_SHOW_MODE
-        ss << out_start_[msg.mode];
-#endif // !NOT_SHOW_MODE
+        if (is_mode)
+            ss << out_start_[msg.mode];
 
-        ss << msg.data << '\t';
+        size_t show_data_len = data_max_len;
+        size_t diff = getChineseCharacterNums(msg.data);
+        show_data_len += diff / 3;
 
-#ifndef NOT_SHOW_FILE
-        ss << msg.file << ':';
-        ss << msg.line;
-        ss << '\t';
-#endif // !NOT_SHOW_FILE
+        if (msg.data.length() > show_data_len) {
+            show_data_len = msg.data.length();
+        }
 
-#ifndef NOT_SHOW_FUN
-        ss << msg.fun;
-        ss << '\t';
-#endif // !NOT_SHOW_FUN
+        ss << std::left << std::setfill(' ') << std::setw(show_data_len)
+           << msg.data;
 
-#ifndef NOT_SHOW_TIME
-        const auto now = std::chrono::system_clock::now();
-        using namespace std::literals;
-        const std::time_t t_c = std::chrono::system_clock::to_time_t(now - 24h);
-        ss << std::put_time(std::localtime(&t_c), "%F %T.");
-#endif // !NOT_SHOW_TIME
+        if (is_file) {
+            std::string file_name;
+            file_name += msg.file;
+            file_name += ':';
+            file_name += std::to_string(msg.line);
+            ss << std::left << std::setw(50) << file_name;
+        }
+
+        if (is_fun)
+            ss << std::left << std::setw(100) << msg.fun;
+
+        if (is_time) {
+            const auto now = std::chrono::system_clock::now();
+            using namespace std::literals;
+            const std::time_t t_c =
+                std::chrono::system_clock::to_time_t(now - 24h);
+            ss << std::put_time(std::localtime(&t_c), "%F %T.");
+        }
 
         ss << '\n';
         return ss.str();
@@ -298,7 +340,8 @@ class LogSystem {
         LOG_SET(modes_[msg.mode]);
 #endif // !CLOSE_COLOR
 
-        std::cout << format(msg);
+        std::cout << format(msg, log_mode[0], log_mode[1], log_mode[2],
+                            log_mode[3]);
 
 #ifndef CLOSE_COLOR
         LOG_SET(0);
@@ -322,8 +365,19 @@ class LogSystem {
         // 打开文件
         out_file.open(file_path, std::ios::out | std::ios::app);
         // 写入文件
-        out_file << format(msg);
+        out_file << format(msg, 0);
         out_file.close();
+    }
+
+    inline size_t getChineseCharacterNums(const std::string &str) {
+        size_t nums = 0;
+        for (auto c : str) {
+            // 是在正常字母和数字
+            if (c >= 33 && c <= 126)
+                continue;
+            ++nums;
+        }
+        return nums;
     }
 };
 

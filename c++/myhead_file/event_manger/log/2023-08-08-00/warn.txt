@@ -1,5 +1,0 @@
-[WARN]	这是警告信息	test/test.hpp:17	void logTest()	2023-08-08 00:58:52.
-[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:100.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 00:58:52.
-[WARN]	<话题测试>话题内容器数据过多,可能出现丢失情况:110.00%填充率	include/event_manger/topic.hpp:229	void Topic<T>::resize(size_t) [with T = std::__cxx11::basic_string<char>; size_t = long unsigned int]	2023-08-08 00:58:52.
-[WARN]	<话题测试>没有发布者发布数据,容器内数据仅剩:10	include/event_manger/topic.hpp:187	auto Topic<T>::popData() [with T = std::__cxx11::basic_string<char>]	2023-08-08 00:58:53.
-----------------编译日期:00:58:49 Aug  9 2023	最后修改者[洛叶白]----------------

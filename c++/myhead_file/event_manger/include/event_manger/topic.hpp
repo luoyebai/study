@@ -4,10 +4,10 @@
 // std
 #include <any>
 #include <bits/types/struct_timeval.h>
-#include <chrono>
 #include <cmath>
 #include <condition_variable>
 #include <cstddef>
+#include <cstdint>
 #include <ctime>
 #include <deque>
 #include <memory>
@@ -46,13 +46,18 @@ void inline sleep(double seconds) noexcept {
     return;
 }
 
+void inline sleep(int seconds) noexcept {
+    std::this_thread::sleep_for(std::chrono::seconds(seconds));
+    return;
+}
+
 /**
  * @brief   同上
  *
  * @param seconds 同上
  */
-void inline sleep(int seconds) noexcept {
-    std::this_thread::sleep_for(std::chrono::seconds(seconds));
+void inline sleep(std::chrono::duration<uint64_t> time) noexcept {
+    std::this_thread::sleep_for(time);
     return;
 }
 
@@ -182,8 +187,8 @@ template <typename T> class Topic {
                 is_loged = false;
 
             if (pubs_num == 0 && !is_loged) {
-                logWarn('<', getName(), '>',
-                        "没有发布者发布数据,容器内数据仅剩:", datas_.size());
+                logWarn('<', getName(), '>', "没有发布者发布数据,容器内仅剩",
+                        datas_.size(), "个数据");
                 is_loged = true;
             }
             // 上锁
@@ -432,7 +437,7 @@ template <typename T> class BasePubSub {
      * @return std::string
      */
     std::string getLogger() {
-        return '<' + getName() + '/' + getTopicName() + '>';
+        return '<' + getName() + '/' + getTopicName() + '>' + ':';
     }
 
     /**

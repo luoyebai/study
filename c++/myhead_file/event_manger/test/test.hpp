@@ -9,7 +9,10 @@
 #include "log/log.hpp"
 
 void logTest() {
+    // 看不到debug
     logSystemInit("洛叶白", "../../../../log/", KDEBUG);
+    // log_system->log_mode[1] = 0;
+    // log_system->log_mode[2] = 0;
     logDebug("日志系统初始化完毕");
     logUnknow("这是未知信息");
     logDebug("这是调试信息");
@@ -39,7 +42,7 @@ void pubTest() {
             static size_t i = 0;
             auto data = str[i];
             pub->push(data);
-            logInfo(pub->getLogger(), "发布数据:", '{', data, '}');
+            // logInfo(pub->getLogger(), "发布数据:", '{', data, '}');
             ++i;
             if (i >= 10) {
                 // 跳出callback
@@ -48,12 +51,12 @@ void pubTest() {
             // 继续callback
             return true;
         },
-        // 100hz
-        10);
+        // 1hz
+        1);
     // 订阅者回调
     sub->timerCallBack([&sub] {
         auto data = sub->pop();
-        logInfo(sub->getLogger(), "接收数据:", '{', data, '}');
+        // logInfo(sub->getLogger(), "接收数据:", '{', data, '}');
         if (data == "杀死订阅者") {
             return false;
         }
@@ -69,9 +72,9 @@ void subTest() {
     sub->timerCallBack([&sub, &pub] {
         // 取出订阅者1号,让发布者2号发布
         auto data = sub->pop();
-        logInfo(sub->getLogger(), "接收数据:", '{', data, '}');
+        // logInfo(sub->getLogger(), "接收数据:", '{', data, '}');
         pub->push(data);
-        logInfo(pub->getLogger(), "发布数据:", '{', data, '}');
+        // logInfo(pub->getLogger(), "发布数据:", '{', data, '}');
         if (data == "杀死订阅者") {
             // 此时跳出,发布者2号也会停止发送
             return false;

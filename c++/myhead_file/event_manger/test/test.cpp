@@ -1,16 +1,19 @@
 // 关闭日志颜色
 // #define CLOSE_COLOR
-// 日志不显示在那个函数下
-#define NOT_SHOW_FUN
 
 #include "test.hpp"
 
+using namespace std::literals;
+
 int main(int argc, char *argv[]) {
     logTest();
-    // 异步测试
+    // 异步试
     // exit(0);
-    logInfo("按回车退出程序");
+    logi("按回车退出程序");
+    logi("123333");
+    logi("7777777777777777777777777");
     std::thread(pubTest).detach();
     std::thread(subTest).detach();
     getchar();
+    // sleep(1s);
 }
