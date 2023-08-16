@@ -14,6 +14,7 @@
 
 // std
 #include <array>
+#include <cassert>
 #include <cstdint>
 #include <ctime>
 #include <deque>
@@ -104,7 +105,10 @@ class LogSystem {
         return log_system;
     }
 
-    // 打印一些结尾信息
+    /**
+     * @brief 程序运行结束后的日志
+     *
+     */
     ~LogSystem() {
         for (const auto &file_name : file_names_) {
             auto file_path = dir_path + file_name;
@@ -133,12 +137,20 @@ class LogSystem {
     // 本次代码修改者名字
     std::string author;
 
-    // 日志系统异步运行
+    /**
+     * @brief 循环
+     *
+     */
     void run() {
+        assert(author != "" && dir_path != "");
+        // 开头
         for (const auto &file_name : file_names_) {
             auto file_path = dir_path + file_name;
             std::ofstream out_file;
             out_file.open(file_path, std::ios::out | std::ios::app);
+            out_file << '/' << std::setfill('x') << std::setw(12) << "时间"
+                     << std::setw(10) << ""
+                     << "\\";
             out_file << '/' << std::setfill('x')
                      << std::setw(data_max_len / 2 + 1) << "信息"
                      << std::setw(data_max_len / 2 - 1) << ""
@@ -149,17 +161,12 @@ class LogSystem {
             out_file << '/' << std::setfill('x') << std::setw(51) << "函数"
                      << std::setw(49) << ""
                      << "\\";
-            out_file << '/' << std::setfill('x') << std::setw(11) << "时间"
-                     << std::setw(9) << ""
-                     << "\\";
             out_file << "\n";
             out_file.close();
         }
+        // 死循环
         auto run_f = [&]() {
-            // std::unique_lock<std::mutex> lock(mutex_);
             while (1) {
-                // lock.unlock();
-                // lock.lock();
                 if (msgs_.empty())
                     continue;
                 auto msg = msgs_.front();
@@ -171,6 +178,7 @@ class LogSystem {
             }
             return;
         };
+        // 异步实现
         std::thread(run_f).detach();
         return;
     }
@@ -223,7 +231,10 @@ class LogSystem {
     }
 
   private:
-    // 防止被外部调用
+    /**
+     * @brief 构造时获取时间
+     *
+     */
     LogSystem() {
         using namespace std::literals;
         const auto now = std::chrono::system_clock::now();
@@ -280,9 +291,9 @@ class LogSystem {
      *
      * @param msg 信息
      * @param is_mode 是否打印模式
-     * @param is_time  时间
      * @param is_file  所在文件
      * @param is_fun  所在函数
+     * @param is_time  时间
      *
      * @return string 返回的字符串结果
      */
@@ -294,9 +305,17 @@ class LogSystem {
         if (is_mode)
             ss << out_start_[msg.mode];
 
+        if (is_time) {
+            const auto now = std::chrono::system_clock::now();
+            using namespace std::literals;
+            const std::time_t t_c =
+                std::chrono::system_clock::to_time_t(now - 24h);
+            ss << std::put_time(std::localtime(&t_c), "%F %T  |");
+        }
+
         size_t show_data_len = data_max_len;
         size_t diff = getChineseCharacterNums(msg.data);
-        show_data_len += diff / 3;
+        show_data_len += diff;
 
         if (msg.data.length() > show_data_len) {
             show_data_len = msg.data.length();
@@ -315,14 +334,6 @@ class LogSystem {
 
         if (is_fun)
             ss << std::left << std::setw(100) << msg.fun;
-
-        if (is_time) {
-            const auto now = std::chrono::system_clock::now();
-            using namespace std::literals;
-            const std::time_t t_c =
-                std::chrono::system_clock::to_time_t(now - 24h);
-            ss << std::put_time(std::localtime(&t_c), "%F %T.");
-        }
 
         ss << '\n';
         return ss.str();
@@ -348,8 +359,9 @@ class LogSystem {
 #endif // !CLOSE_COLOR
 
         // 最高等级报错则退出程序
-        if (msg.mode == KMODE_MAX)
-            exit(1);
+        if (msg.mode != KMODE_MAX)
+            return;
+        exit(-1);
         return;
     }
 
@@ -369,6 +381,12 @@ class LogSystem {
         out_file.close();
     }
 
+    /**
+     * @brief 得到字符串内非正常字母数字的数量
+     *
+     * @param str 字符串
+     * @return size_t 字母数量
+     */
     inline size_t getChineseCharacterNums(const std::string &str) {
         size_t nums = 0;
         for (auto c : str) {
@@ -377,7 +395,8 @@ class LogSystem {
                 continue;
             ++nums;
         }
-        return nums;
+        // utf8中中文占3个字节
+        return nums / 3;
     }
 };
 
