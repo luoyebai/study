@@ -48,7 +48,7 @@ template <typename T> class Subscriber : public BasePubSub<T> {
      */
     ~Subscriber() {
         --topic_ptr_->subs_num;
-        logDebug(getLogger(), "退出话题订阅");
+        log_d(getLogger(), "退出话题订阅");
     }
 
     // 当前订阅到的数据时间戳
@@ -99,8 +99,8 @@ template <typename T> class Subscriber : public BasePubSub<T> {
             one_sec_timer_.update();
         ++count_;
         if (one_sec_timer_.is_time_ok && is_update_timer) {
-            logDebug(getLogger(),
-                     "接收数据频率:", count_ / one_sec_timer_.diff_time, " Hz");
+            log_d(getLogger(),
+                  "接收数据频率:", count_ / one_sec_timer_.diff_time, " Hz");
             count_ = 0;
         }
         auto topic_data = topic_ptr_->popData();

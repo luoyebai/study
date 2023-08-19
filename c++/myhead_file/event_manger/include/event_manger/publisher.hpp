@@ -95,8 +95,8 @@ template <typename T> class Publisher : public BasePubSub<T> {
             one_sec_timer_.update();
         ++count_;
         if (one_sec_timer_.is_time_ok && is_update_timer) {
-            logDebug(getLogger(),
-                     "发布数据率:", count_ / one_sec_timer_.diff_time, " Hz");
+            log_d(getLogger(), "发布数据率:", count_ / one_sec_timer_.diff_time,
+                  " Hz");
             count_ = 0;
         }
 

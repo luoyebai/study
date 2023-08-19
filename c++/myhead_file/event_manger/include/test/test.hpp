@@ -3,13 +3,13 @@
 #include <log/log.hpp>
 
 class Test {
-public:
+  public:
     void assert(bool is_true_ok) {
         if (!is_true)
             logf("有问题");
     }
 
-private:
+  private:
 };
 
 #endif // !INCLUDE__TEST__HPP
