@@ -13,6 +13,7 @@
 #define INCLUDE__LOG__HPP
 
 // std
+#include <cmath>
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
@@ -27,8 +28,6 @@
 // log sys
 #include "log_system.hpp"
 
-static auto log_system = LogSystem::getInstance();
-
 /**
  * @brief log类宏,用来打印信息
  * LOG宏为其他log宏的基础
@@ -36,15 +35,15 @@ static auto log_system = LogSystem::getInstance();
  * dlog保证任何等级日志下都能看到数据通常不要使用
  */
 #define LOG(MODE, ...)                                                         \
-    log_system->addMsg(MODE, __PRETTY_FUNCTION__, __FILE__, __LINE__,          \
-                       ##__VA_ARGS__)
+    log_system_ptr->addMsg(MODE, __PRETTY_FUNCTION__, __FILE__, __LINE__,      \
+                           ##__VA_ARGS__)
 #define logUnknow(...) LOG(KUNKNOW, ##__VA_ARGS__)
 #define logDebug(...) LOG(KDEBUG, ##__VA_ARGS__)
 #define logInfo(...) LOG(KINFO, ##__VA_ARGS__)
 #define logWarn(...) LOG(KWARN, ##__VA_ARGS__)
 #define logError(...) LOG(KERROR, ##__VA_ARGS__)
 #define logFatal(...) LOG(KFATAL, ##__VA_ARGS__)
-#define dlog(...) LOG(log_system->log_level, ##__VA_ARGS__)
+#define dlog(...) LOG(log_system_ptr->log_level, ##__VA_ARGS__)
 // 缩写
 #define logu(...) logUnknow(__VA_ARGS__)
 #define logd(...) logDebug(__VA_ARGS__)
@@ -69,8 +68,8 @@ void logSystemInit(const std::string &name, const std::string &dir_path = "../",
 
     // 年月日时
     std::array<int, 4> ymdh{
-        log_system->getInitTime(KYEAR), log_system->getInitTime(KMOON),
-        log_system->getInitTime(KMDAY), log_system->getInitTime(KHOUR)};
+        log_system_ptr->getInitTime(KYEAR), log_system_ptr->getInitTime(KMOON),
+        log_system_ptr->getInitTime(KMDAY), log_system_ptr->getInitTime(KHOUR)};
     // 月日时,若只有个位则在十位添加0
     std::array<std::string, 4> ymdh_str;
     for (size_t i = 0; i < 4; ++i) {
@@ -106,11 +105,11 @@ void logSystemInit(const std::string &name, const std::string &dir_path = "../",
         fs::create_directories(log_dir_path);
 
     // 日志系统属性赋值
-    log_system->author = name;
-    log_system->dir_path = log_dir_path;
-    log_system->log_level = (level > KMODE_MAX) ? KMODE_MAX : level;
-    log_system->data_max_len = data_max_len;
-    log_system->run();
+    log_system_ptr->author = name;
+    log_system_ptr->dir_path = log_dir_path;
+    log_system_ptr->log_level = (level > KMODE_MAX) ? KMODE_MAX : level;
+    log_system_ptr->data_max_len = data_max_len;
+    log_system_ptr->run();
 }
 
 #endif // !INCLUDE__LOG__HPP

@@ -15,6 +15,7 @@
 // std
 #include <array>
 #include <cassert>
+#include <condition_variable>
 #include <cstdint>
 #include <ctime>
 #include <deque>
@@ -27,6 +28,7 @@
 #include <sstream>
 #include <string>
 #include <thread>
+#include <type_traits>
 #include <utility>
 
 /**
@@ -148,8 +150,8 @@ class LogSystem {
             auto file_path = dir_path + file_name;
             std::ofstream out_file;
             out_file.open(file_path, std::ios::out | std::ios::app);
-            out_file << '/' << std::setfill('x') << std::setw(12) << "时间"
-                     << std::setw(10) << ""
+            out_file << '/' << std::setfill('x') << std::setw(14) << "时间"
+                     << std::setw(8) << ""
                      << "\\";
             out_file << '/' << std::setfill('x')
                      << std::setw(data_max_len / 2 + 1) << "信息"
@@ -268,7 +270,6 @@ class LogSystem {
     tm *t_m_;
     // 锁
     std::mutex mutex_;
-    bool is_log_end = true;
     std::deque<Msg> msgs_;
 
     /**
@@ -399,5 +400,7 @@ class LogSystem {
         return nums / 3;
     }
 };
+
+static auto log_system_ptr = LogSystem::getInstance();
 
 #endif // !INCLUDE_LOG_SYSTEM_HPP_
