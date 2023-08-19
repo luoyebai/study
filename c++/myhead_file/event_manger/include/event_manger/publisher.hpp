@@ -20,8 +20,9 @@
  *
  * @tparam T 发布的数据类型
  */
-template <typename T> class Publisher : public BasePubSub<T> {
-  public:
+template <typename T>
+class Publisher : public BasePubSub<T> {
+ public:
     /**
      * @brief 构造一个新的发布者
      *
@@ -91,8 +92,7 @@ template <typename T> class Publisher : public BasePubSub<T> {
      * @param is_update_timer 是否更新定时器----一般用于统计发布数据的频率
      */
     void push(const T &data, bool is_update_timer = true) {
-        if (is_update_timer)
-            one_sec_timer_.update();
+        if (is_update_timer) one_sec_timer_.update();
         ++count_;
         if (one_sec_timer_.is_time_ok && is_update_timer) {
             log_d(getLogger(), "发布数据率:", count_ / one_sec_timer_.diff_time,
@@ -110,7 +110,7 @@ template <typename T> class Publisher : public BasePubSub<T> {
         return;
     }
 
-  private:
+ private:
     size_t queue_size_;
     // 基类成员变量
     using BasePubSub<T>::topic_ptr_;
@@ -119,4 +119,4 @@ template <typename T> class Publisher : public BasePubSub<T> {
     using BasePubSub<T>::count_;
 };
 
-#endif // !INCLUDE_EVENT_MANGER_PUBLISHER_HPP
+#endif  // !INCLUDE_EVENT_MANGER_PUBLISHER_HPP
