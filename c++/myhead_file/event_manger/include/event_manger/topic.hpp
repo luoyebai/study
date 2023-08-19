@@ -1,3 +1,14 @@
+/**
+ * @file topic.hpp
+ * @author luoyebai (2112216825@qq.com)
+ * @brief 对话题的实现,订阅者发布者基类实现,计时器实现
+ * @version 0.1
+ * @date 2023-08-11
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+//
 #ifndef INCLUDE_EVENT_MANGER_TOPIC_HPP
 #define INCLUDE_EVENT_MANGER_TOPIC_HPP
 
@@ -46,6 +57,11 @@ void inline sleep(double seconds) noexcept {
     return;
 }
 
+/**
+ * @brief 同上
+ *
+ * @param seconds
+ */
 void inline sleep(int seconds) noexcept {
     std::this_thread::sleep_for(std::chrono::seconds(seconds));
     return;
@@ -54,7 +70,7 @@ void inline sleep(int seconds) noexcept {
 /**
  * @brief   同上
  *
- * @param seconds 同上
+ * @param seconds 同上但是可以指定单位
  */
 void inline sleep(std::chrono::duration<uint64_t> time) noexcept {
     std::this_thread::sleep_for(time);
@@ -85,7 +101,8 @@ class Timer {
     /**
      * @brief 更新时间点
      *
-     * @param timing 时间间隔/可选----小于真实时间间隔则更新成功
+     * @param timing
+     * 时间间隔/可选----小于真实时间间隔则更新成功
      */
     inline void update(double timing = 1.0) {
         // 更新当前时间点
@@ -187,8 +204,9 @@ template <typename T> class Topic {
                 is_loged = false;
 
             if (pubs_num == 0 && !is_loged) {
-                logWarn('<', getName(), '>', "没有发布者发布数据,容器内仅剩",
-                        datas_.size(), "个数据");
+                log_w('<', getName(), '>',
+                      "没有发布者发布数据,容器内仅剩",
+                      datas_.size(), "个数据");
                 is_loged = true;
             }
             // 上锁
@@ -229,9 +247,9 @@ template <typename T> class Topic {
         // size小10则不用打印该信息
         if (size >= 10) {
             if (fill_rate - 90 > 1e-6)
-                logWarn('<', getName(), '>',
-                        "话题内容器数据过多,可能出现丢失情况:", fill_rate,
-                        "%填充率");
+                log_w('<', getName(), '>',
+                      "话题内容器数据过多,可能出现丢失情况:",
+                      fill_rate, "%填充率");
         }
         // 当填充占比大于100,限制大小
         if (fill_rate - 100.0 > 1e-6) {
@@ -252,7 +270,8 @@ template <typename T> class Topic {
 template <typename T> using TopicPtr = typename Topic<T>::ShartPtr;
 
 /**
- * @brief 话题指针容器类,即订阅者发布者的通讯组件,目前使用static变量实现
+ * @brief
+ * 话题指针容器类,即订阅者发布者的通讯组件,目前使用static变量实现
  *
  */
 class VecTopicPtr {
@@ -269,8 +288,8 @@ class VecTopicPtr {
         try {
             var = data;
         } catch (std::exception &e) {
-            logError('<', data->getName(), '>',
-                     "话题指针添加发生异常:", e.what());
+            log_e('<', data->getName(), '>',
+                  "话题指针添加发�异常:", e.what());
         }
         topic_ptr_vec_.push_back(var);
         return;
@@ -293,7 +312,8 @@ class VecTopicPtr {
             try {
                 result_topic_ptr = std::any_cast<TopicPtr<T>>(var);
             } catch (std::exception &e) {
-                logError('<', name, '>', "话题指针查找发生异常:", e.what());
+                log_e('<', name, '>',
+                      "话题指针查找发生异常:", e.what());
                 continue;
             }
             if (result_topic_ptr->getName() == name)
@@ -322,7 +342,8 @@ class VecTopicPtr {
             try {
                 result_topic_ptr = std::any_cast<TopicPtr<T>>(*it);
             } catch (std::exception &e) {
-                logError('<', name, '>', "话题指针移除发生异常:", e.what());
+                log_e('<', name, '>',
+                      "话题指针移除发生异常:", e.what());
                 continue;
             }
             if (result_topic_ptr->getName() != name)
@@ -377,8 +398,10 @@ template <typename T> class BasePubSub {
      *
      * @tparam CBF 回调函数类型
      * @tparam RF  响应函数类型
-     * @param call_back_f 回调函数----返回值为bool,返回flase时退出循环回调
-     * @param response_f 响应函数----返回值为bool,一旦返回true则开始回调
+     * @param call_back_f
+     * 回调函数----返回值为bool,返回flase时退出循环回调
+     * @param response_f
+     * 响应函数----返回值为bool,一旦返回true则开始回调
      */
     template <typename CBF, typename RF>
     inline void baseCallBack(CBF &&call_back_f, RF &&response_f) {
@@ -432,12 +455,13 @@ template <typename T> class BasePubSub {
     std::string getTopicName() { return topic_name_; }
 
     /**
-     * @brief 返回 <名字/话题名字>
+     * @brief 返回 <名字和话题名字>
      *
      * @return std::string
      */
     std::string getLogger() {
-        return '<' + getName() + '/' + getTopicName() + '>' + ':';
+        std::string logger = getName() + "--->" + getTopicName() + ":  ";
+        return logger;
     }
 
     /**
@@ -447,12 +471,13 @@ template <typename T> class BasePubSub {
     inline void topicPtrInit() {
         topic_ptr_ = VecTopicPtr::findTopicPtr<T>(getTopicName());
         if (topic_ptr_ != nullptr) {
-            logDebug(getLogger(), "找到对应话题,初始化完毕");
+            log_d(getLogger(), "找到对应话题,初始化完毕");
             return;
         }
         topic_ptr_ = std::make_shared<Topic<T>>(getTopicName());
         VecTopicPtr::addTopicPtr<T>(topic_ptr_);
-        logDebug(getLogger(), "未找到目标话题,创建对应话题,初始化完毕");
+        log_d(getLogger(),
+              "未找到目标话题,创建对应话题,初始化完毕");
         return;
     }
 
@@ -463,7 +488,8 @@ template <typename T> class BasePubSub {
      *
      */
     inline void topicPtrRemove() {
-        logDebug(getLogger(), "订阅者和发布者都已注销,该话题将被删除");
+        log_d(getLogger(),
+              "订阅者和发布者都已注销,该话题将被删除");
         VecTopicPtr::removeTopicPtr<T>(getTopicName());
         return;
     }

@@ -42,7 +42,7 @@ template <typename T> class Publisher : public BasePubSub<T> {
      */
     ~Publisher() {
         --topic_ptr_->pubs_num;
-        logDebug(getLogger(), "停止话题数据发布");
+        log_d(getLogger(), "停止话题数据发布");
     }
 
     // 当前发布的数据时间戳

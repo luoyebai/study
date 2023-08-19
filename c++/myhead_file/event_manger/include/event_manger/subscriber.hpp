@@ -1,6 +1,15 @@
+/**
+ * @file subscriber.hpp
+ * @author luoyebai (2112216825@qq.com)
+ * @brief 订阅者的简单实现
+ * @version 0.1
+ * @date 2023-08-11
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 #ifndef INCLUDE_EVENT_MANGER_SUBSCRIBER_HPP
 #define INCLUDE_EVENT_MANGER_SUBSCRIBER_HPP
-
 // topic
 #include "topic.hpp"
 
@@ -26,7 +35,7 @@ template <typename T> class Subscriber : public BasePubSub<T> {
         while (1) {
             if (!(sleep_time > 0. && topic_ptr_->pubs_num <= 0))
                 break;
-            logWarn(getLogger(), "还没有相应发布者,等待", sleep_time, 's');
+            log_w(getLogger(), "还没有相应发布者,等待", sleep_time, 's');
             sleep(sleep_time);
         }
         // 该话题订阅者计数器加1
@@ -94,7 +103,6 @@ template <typename T> class Subscriber : public BasePubSub<T> {
                      "接收数据频率:", count_ / one_sec_timer_.diff_time, " Hz");
             count_ = 0;
         }
-
         auto topic_data = topic_ptr_->popData();
         now_time_stamp = topic_data.time_stamp;
         return topic_data.data;

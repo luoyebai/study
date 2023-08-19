@@ -13,7 +13,6 @@
 #define INCLUDE__LOG__HPP
 
 // std
-#include <cmath>
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
@@ -37,20 +36,20 @@
 #define LOG(MODE, ...)                                                         \
     log_system_ptr->addMsg(MODE, __PRETTY_FUNCTION__, __FILE__, __LINE__,      \
                            ##__VA_ARGS__)
-#define logUnknow(...) LOG(KUNKNOW, ##__VA_ARGS__)
-#define logDebug(...) LOG(KDEBUG, ##__VA_ARGS__)
-#define logInfo(...) LOG(KINFO, ##__VA_ARGS__)
-#define logWarn(...) LOG(KWARN, ##__VA_ARGS__)
-#define logError(...) LOG(KERROR, ##__VA_ARGS__)
-#define logFatal(...) LOG(KFATAL, ##__VA_ARGS__)
+#define LOG_UNKNOW(...) LOG(KUNKNOW, ##__VA_ARGS__)
+#define LOG_DEBUG(...) LOG(KDEBUG, ##__VA_ARGS__)
+#define LOG_INFO(...) LOG(KINFO, ##__VA_ARGS__)
+#define LOG_WARN(...) LOG(KWARN, ##__VA_ARGS__)
+#define LOG_ERROR(...) LOG(KERROR, ##__VA_ARGS__)
+#define LOG_FATAL(...) LOG(KFATAL, ##__VA_ARGS__)
 #define dlog(...) LOG(log_system_ptr->log_level, ##__VA_ARGS__)
-// 缩写
-#define logu(...) logUnknow(__VA_ARGS__)
-#define logd(...) logDebug(__VA_ARGS__)
-#define logi(...) logInfo(__VA_ARGS__)
-#define logw(...) logWarn(__VA_ARGS__)
-#define loge(...) logError(__VA_ARGS__)
-#define logf(...) logFatal(__VA_ARGS__)
+// // 缩写
+#define log_u(...) LOG_UNKNOW(__VA_ARGS__)
+#define log_d(...) LOG_DEBUG(__VA_ARGS__)
+#define log_i(...) LOG_INFO(__VA_ARGS__)
+#define log_w(...) LOG_WARN(__VA_ARGS__)
+#define log_e(...) LOG_ERROR(__VA_ARGS__)
+#define log_f(...) LOG_FATAL(__VA_ARGS__)
 
 /**
  * @brief 日志系统初始化
