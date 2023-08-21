@@ -34,6 +34,7 @@ class Publisher : public BasePubSub<T> {
                        const std::string &topic_name, size_t queue_size = 1e3)
         : BasePubSub<T>(pub_name, topic_name), queue_size_(queue_size) {
         // 该话题发布者计数器加1
+        topic_ptr_->pub_ptrs.push_front(reinterpret_cast<void *>(this));
         ++topic_ptr_->pubs_num;
     }
 
@@ -42,8 +43,18 @@ class Publisher : public BasePubSub<T> {
      * 如果订阅者和发布者都为空,会删除话题
      */
     ~Publisher() {
+        auto prev_it = topic_ptr_->pub_ptrs.before_begin();
+        for (auto it = topic_ptr_->pub_ptrs.begin();
+             it != topic_ptr_->pub_ptrs.end(); ++it) {
+            auto this_pub = static_cast<Publisher<T> *>(*it);
+            if (this_pub->getName() == getName()) {
+                topic_ptr_->pub_ptrs.erase_after(prev_it);
+                break;
+            }
+            ++prev_it;
+        }
         --topic_ptr_->pubs_num;
-        log_d(getLogger(), "停止话题数据发布");
+        log_w(getLogger(), "停止话题数据发布");
     }
 
     // 当前发布的数据时间戳

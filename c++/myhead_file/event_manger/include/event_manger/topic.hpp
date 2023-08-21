@@ -3,13 +3,16 @@
  * @author luoyebai (2112216825@qq.com)
  * @brief
  * 对话题的实现,订阅者发布者基类实现,计时器实现
- * @version 0.1
- * @date 2023-08-11
+ * @version 1.2
+ * @date 2023-08-20
  *
  * @copyright Copyright (c) 2023
  *
  */
-//
+
+// luoyebai TODO:话题指针容器可以遍历所有的话题
+// luoyebai TODO:增加和外部进程、线程通讯
+
 #ifndef INCLUDE_EVENT_MANGER_TOPIC_HPP
 #define INCLUDE_EVENT_MANGER_TOPIC_HPP
 
@@ -24,6 +27,9 @@
 #include <cstdint>
 #include <ctime>
 #include <deque>
+#include <forward_list>
+#include <functional>
+#include <future>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -32,6 +38,8 @@
 #include <vector>
 // log
 #include "log/log.hpp"
+
+class AAny : public std::any {};
 
 // 可以存放任意类型的动态容器,用于实现话题指针容器类
 using VecAny = std::vector<std::any>;
@@ -152,6 +160,10 @@ class Timer {
     }
 };
 
+// 声明
+template <typename T>
+class BasePubSub;
+
 /**
  * @brief 话题类的实现
  *
@@ -175,6 +187,9 @@ class Topic {
     // 订阅者发布者计数器
     uint16_t pubs_num = 0;
     uint16_t subs_num = 0;
+    using BasePubSubPtrs = std::forward_list<void *>;
+    BasePubSubPtrs pub_ptrs;
+    BasePubSubPtrs sub_ptrs;
 
     /**
      * @brief 获取话题名字
@@ -205,8 +220,7 @@ class Topic {
     inline auto popData() {
         static bool is_loged = false;
         while (true) {
-            if (is_loged && pubs_num != 0) is_loged = false;
-
+            // 没有发布者,而且在此之前没有打印过
             if (pubs_num == 0 && !is_loged) {
                 log_w('<', getName(), '>',
                       "没有发布者发布数据,"
@@ -214,6 +228,10 @@ class Topic {
                       datas_.size(), "个数据");
                 is_loged = true;
             }
+
+            // 是否还是没有发布者，有发布者了就重置为没打印过
+            if (is_loged) is_loged = pubs_num == 0;
+
             // 上锁
             std::lock_guard<std::mutex> lock(queue_mutex_);
             if (datas_.empty()) continue;
@@ -252,17 +270,44 @@ class Topic {
         double fill_rate = getFillRate(size);
         // size小10则不用打印该信息
         if (size >= 10) {
-            if (fill_rate - 90 > 1e-6)
+            static bool is_loged = false;
+            if (is_loged) is_loged = fill_rate - 90 > 1e-6;
+            if (fill_rate - 90 > 1e-6 && !is_loged) {
                 log_w('<', getName(), '>',
                       "话题内容器数据过多,"
                       "可能出现丢失情况:",
                       fill_rate, "%填充率");
+                is_loged = true;
+            }
         }
-        // 当填充占比大于100,限制大小
+
+        // // 当填充占比大于100,限制大小
         if (fill_rate - 100.0 > 1e-6) {
             std::lock_guard<std::mutex> lock(queue_mutex_);
             datas_.resize(size);
         }
+        return;
+    }
+
+    void listAllPub() {
+        std::string all_pub_name;
+        for (const auto it : pub_ptrs) {
+            auto pub_ptr = static_cast<BasePubSub<T> *>(it);
+            all_pub_name += "{" + pub_ptr->getName();
+            all_pub_name += "} ";
+        }
+        log_d('<', name_, '>', "查看所有的发布者:", all_pub_name);
+        return;
+    }
+
+    void listAllSub() {
+        std::string all_sub_name;
+        for (const auto it : sub_ptrs) {
+            auto sub_ptr = static_cast<BasePubSub<T> *>(it);
+            all_sub_name += "{" + sub_ptr->getName();
+            all_sub_name += "} ";
+        }
+        log_d('<', name_, '>', "查看所有的订阅者:", all_sub_name);
         return;
     }
 
@@ -287,6 +332,7 @@ class VecTopicPtr {
     /**
      * @brief 添加新的话题指针
      *
+#include <typeindex>
      * @tparam T 话题的容器类型
      * @param data 新的话题指针
      */
@@ -297,7 +343,7 @@ class VecTopicPtr {
         try {
             var = data;
         } catch (std::exception &e) {
-            log_e('<', data->getName(), '>', "话题指针添加发�异常:", e.what());
+            log_e('<', data->getName(), '>', "话题指针添加发生异常:", e.what());
         }
         topic_ptr_vec_.push_back(var);
         return;
@@ -316,6 +362,7 @@ class VecTopicPtr {
         TopicPtr<T> result_topic_ptr = nullptr;
         std::lock_guard<std::mutex> lock(mutex_);
         for (auto &var : topic_ptr_vec_) {
+            if (!var.has_value()) continue;
             // 类型不同
             if (var.type() != typeid(result_topic_ptr)) continue;
             try {
@@ -344,6 +391,8 @@ class VecTopicPtr {
         std::lock_guard<std::mutex> lock(mutex_);
         for (auto it = topic_ptr_vec_.begin(); it != topic_ptr_vec_.end();
              ++it) {
+            // 为空
+            if (!it->has_value()) continue;
             // 类型不同
             if (it->type() != typeid(result_topic_ptr)) continue;
             try {
@@ -357,6 +406,15 @@ class VecTopicPtr {
             return true;
         }
         return false;
+    }
+
+    static void listAllTopic() {
+        // auto topic_ptr = std::any_cast<T>(it);
+        std::lock_guard<std::mutex> lock(mutex_);
+        for (const auto &var : topic_ptr_vec_) {
+        }
+
+        return;
     }
 
  private:
@@ -391,6 +449,8 @@ class BasePubSub {
      *
      */
     ~BasePubSub() {
+        // 析构时要杀死回调
+        killCallBack();
         // 话题的订阅者发布者计数器都归零
         if (topic_ptr_->pubs_num <= 0 && topic_ptr_->subs_num <= 0)
             topicPtrRemove();
@@ -400,50 +460,14 @@ class BasePubSub {
     timeval now_time_stamp;
 
     /**
-     * @brief
-     * 基础的回调模式,在死循环内进行回调
+     * @brief 返回 <名字和话题名字>
      *
-     * @tparam CBF 回调函数类型
-     * @tparam RF  响应函数类型
-     * @param call_back_f
-     * 回调函数----返回值为bool,返回flase时退出循环回调
-     * @param response_f
-     * 响应函数----返回值为bool,一旦返回true则开始回调
+     * @return std::string
      */
-    template <typename CBF, typename RF>
-    inline void baseCallBack(CBF &&call_back_f, RF &&response_f) {
-        while (1) {
-            if (!response_f()) continue;
-            if (!call_back_f()) break;
-        }
-        return;
+    std::string getLogger() {
+        std::string logger = getName() + "--->" + getTopicName() + ":";
+        return logger;
     }
-
-    /**
-     * @brief 定时回调函数
-     *
-     * @tparam Func 回调函数类型
-     * @param call_back_f 回调函数
-     * @param speed 回调的速率
-     */
-    template <typename Func>
-    void timerCallBack(Func &&call_back_f, double speed = 1e6) {
-        baseCallBack(std::forward<Func>(call_back_f), [speed, this]() -> bool {
-            // 通过计时器来判断是否回调
-            this->timer_.update(1.0 / speed);
-            return this->timer_.is_time_ok;
-        });
-        return;
-    }
-
- protected:
-    // 话题指针
-    TopicPtr<T> topic_ptr_ = nullptr;
-    // 两个定时器
-    Timer timer_;
-    Timer one_sec_timer_;
-    // 统计帧率的计数器
-    size_t count_ = 0;
 
     /**
      * @brief 返回订阅者或发布者名字
@@ -460,14 +484,68 @@ class BasePubSub {
     std::string getTopicName() { return topic_name_; }
 
     /**
-     * @brief 返回 <名字和话题名字>
+     * @brief
+     * 基础的回调模式,在死循环内进行回调
      *
-     * @return std::string
+     * @tparam CBF 回调函数类型
+     * @tparam RF  响应函数类型
+     * @tparam Args 形参包
+     * @param call_back_f
+     * 回调函数----返回值为bool,返回flase时退出循环回调
+     * @param response_f
+     * 响应函数----返回值为bool,一旦返回true则回调
      */
-    std::string getLogger() {
-        std::string logger = getName() + "--->" + getTopicName() + ":  ";
-        return logger;
+    template <typename CBF, typename RF, typename... Args>
+    inline void baseCallBack(CBF &&call_back_f, RF &&response_f,
+                             Args &&...args) {
+        log_d(getLogger(), "进入回调循环");
+        while (1) {
+            // 特殊情况下kill回调---如函数线程终止，回收资源
+            if (is_kill_callback_) return;
+            if (!response_f()) continue;
+            if (!call_back_f(args...)) break;
+        }
+        log_d(getLogger(), "退出回调循环");
+        return;
     }
+
+    /**
+     * @brief 定时回调函数
+     *
+     * @tparam Func 回调函数类型
+     * @tparam Args 形参包
+     * @param call_back_f 回调函数
+     * @param speed 回调的速率
+     * @param is_creat_thread 是否创建线程实现异步回调
+     */
+    template <typename Func, typename... Args>
+    inline void timerCallBack(Func &&call_back_f, bool is_creat_thread = false,
+                              double speed = 1e100, Args &&...args) {
+        auto response_f = [speed, this]() -> bool {
+            // 通过计时器来判断是否回调
+            this->timer_.update(1.0 / speed);
+            return this->timer_.is_time_ok;
+        };
+        auto base_cb =
+            std::bind(&BasePubSub<T>::baseCallBack<Func, decltype(response_f)>,
+                      this, std::placeholders::_1, std::placeholders::_2);
+        if (is_creat_thread)
+            std::thread(base_cb, call_back_f, response_f, args...).detach();
+        else
+            std::async(base_cb, call_back_f, response_f, args...);
+        return;
+    }
+
+    inline void killCallBack() { is_kill_callback_ = true; }
+
+ protected:
+    // 话题指针
+    TopicPtr<T> topic_ptr_ = nullptr;
+    // 两个定时器
+    Timer timer_;
+    Timer one_sec_timer_;
+    // 统计帧率的计数器
+    size_t count_ = 0;
 
     /**
      * @brief
@@ -498,8 +576,8 @@ class BasePubSub {
      *
      */
     inline void topicPtrRemove() {
-        log_d(getLogger(),
-              "订阅者和发布者都已注销"
+        log_w('<', getTopicName(),
+              ">订阅者和发布者都已注销"
               ","
               "该话题将被删除");
         VecTopicPtr::removeTopicPtr<T>(getTopicName());
@@ -509,6 +587,7 @@ class BasePubSub {
  private:
     std::string name_;
     std::string topic_name_;
+    bool is_kill_callback_ = false;
 };
 
 #endif  // !INCLUDE_EVENT_MANGER_TOPIC_HPP

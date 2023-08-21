@@ -19,8 +19,9 @@
  *
  * @tparam T 订阅的数据类型
  */
-template <typename T> class Subscriber : public BasePubSub<T> {
-  public:
+template <typename T>
+class Subscriber : public BasePubSub<T> {
+ public:
     /**
      * @brief 创建一个新的发布者
      *
@@ -28,17 +29,29 @@ template <typename T> class Subscriber : public BasePubSub<T> {
      * @param topic_name 话题名字----不要与其他话题同名
      * @param sleep_time
      * 睡眠时间/可选,在没有发布者时的睡眠时间,默认为0
+     * @param sleep_count_max
+     * 最大睡眠次数，大于这个次数将不等待订阅，直接进行初始化
      */
     explicit Subscriber(const std::string &sub_name,
-                        const std::string &topic_name, double sleep_time = 0.)
+                        const std::string &topic_name, double sleep_time = 0.,
+                        size_t sleep_count_max = 10)
         : BasePubSub<T>(sub_name, topic_name) {
+        size_t sleep_count = 0;
+        // 这里进行睡眠
         while (1) {
-            if (!(sleep_time > 0. && topic_ptr_->pubs_num <= 0))
-                break;
-            log_w(getLogger(), "还没有相应发布者,等待", sleep_time, 's');
+            if (sleep_time <= 0. || topic_ptr_->pubs_num > 0) break;
+            ++sleep_count;
+            log_w(getLogger(), "还没有相应发布者,等待", sleep_time, "s,总计：",
+                  sleep_count, "次");
             sleep(sleep_time);
+            if (sleep_count == sleep_count_max) {
+                log_w(getLogger(), "已经等待10次,总计",
+                      sleep_count * sleep_time, "s,退出订阅者初始化");
+                return;
+            }
         }
         // 该话题订阅者计数器加1
+        topic_ptr_->sub_ptrs.push_front(reinterpret_cast<void *>(this));
         ++topic_ptr_->subs_num;
     }
 
@@ -47,8 +60,18 @@ template <typename T> class Subscriber : public BasePubSub<T> {
      * 如果订阅者和发布者都为空,会删除话题
      */
     ~Subscriber() {
+        auto prev_it = topic_ptr_->pub_ptrs.before_begin();
+        for (auto it = topic_ptr_->pub_ptrs.begin();
+             it != topic_ptr_->pub_ptrs.end(); ++it) {
+            auto this_pub = static_cast<Subscriber<T> *>(*it);
+            if (this_pub->getName() != getName()) {
+                topic_ptr_->pub_ptrs.erase_after(prev_it);
+                break;
+            }
+            ++prev_it;
+        }
         --topic_ptr_->subs_num;
-        log_d(getLogger(), "退出话题订阅");
+        log_w(getLogger(), "退出话题订阅");
     }
 
     // 当前订阅到的数据时间戳
@@ -95,8 +118,7 @@ template <typename T> class Subscriber : public BasePubSub<T> {
      * @return auto 取出来的数据
      */
     auto pop(bool is_update_timer = true) {
-        if (is_update_timer)
-            one_sec_timer_.update();
+        if (is_update_timer) one_sec_timer_.update();
         ++count_;
         if (one_sec_timer_.is_time_ok && is_update_timer) {
             log_d(getLogger(),
@@ -108,7 +130,7 @@ template <typename T> class Subscriber : public BasePubSub<T> {
         return topic_data.data;
     }
 
-  private:
+ private:
     // 基类成员变量
     using BasePubSub<T>::topic_ptr_;
     using BasePubSub<T>::timer_;
@@ -117,4 +139,4 @@ template <typename T> class Subscriber : public BasePubSub<T> {
     // 基类函数
     using BasePubSub<T>::topicPtrInit;
 };
-#endif // !INCLUDE_EVENT_MANGER_SUBSCRIBER_HPP
+#endif  // !INCLUDE_EVENT_MANGER_SUBSCRIBER_HPP

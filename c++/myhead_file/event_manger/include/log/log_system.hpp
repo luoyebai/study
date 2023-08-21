@@ -1,5 +1,5 @@
 /**
- * @file log_system.hpp
+ jj* @file log_system.hpp
  * @author luoyebai (2112216825@qq.com)
  * @brief   简单的日志系统
  * @version 0.1
@@ -37,7 +37,7 @@
  */
 #ifndef CLOSE_COLOR
 #define LOG_SET(mode) std::cout << "\e[" << mode << "m";
-#endif // !CLOSE_COLOR
+#endif  // !CLOSE_COLOR
 
 /**
  * @brief   日志的各个等级
@@ -82,7 +82,7 @@ static constexpr uint8_t KLOG_CLEAR_INTERVAL = 7;
  *
  */
 class LogSystem {
-  public:
+ public:
     // 删除其他构造
     LogSystem(LogSystem &&) = delete;
     LogSystem(const LogSystem &) = delete;
@@ -90,7 +90,7 @@ class LogSystem {
     LogSystem &operator=(const LogSystem &) = delete;
 
     // mode file fun time
-    std::array<bool, 4> log_mode{1, 0, 0, 1};
+    std::array<bool, 5> log_mode{1, 1, 1, 0, 0};
     size_t data_max_len = 100;
 
     /**
@@ -121,7 +121,7 @@ class LogSystem {
             str += __TIME__;
             str += __DATE__;
             str += "\t最后修改者:[" + author + ']';
-            const int total_w = data_max_len + 180;
+            const int total_w = data_max_len + 202;
             const int left_w = (total_w - str.length()) / 2;
             const int right_w = total_w - left_w - str.length();
             out_file << std::setw(left_w) << std::setfill('x') << "";
@@ -157,6 +157,9 @@ class LogSystem {
                      << std::setw(data_max_len / 2 + 1) << "信息"
                      << std::setw(data_max_len / 2 - 1) << ""
                      << "\\";
+            out_file << '/' << std::setfill('x') << std::setw(5) << ""
+                     << "线程ID" << std::setw(5) << ""
+                     << "\\";
             out_file << '/' << std::setfill('x') << std::setw(26) << "文件"
                      << std::setw(24) << ""
                      << "\\";
@@ -169,13 +172,11 @@ class LogSystem {
         // 死循环
         auto run_f = [&]() {
             while (1) {
-                if (msgs_.empty())
-                    continue;
+                if (msgs_.empty()) continue;
                 auto msg = msgs_.front();
                 msgs_.pop_front();
                 writeLogFile(msg);
-                if (this->log_level > msg.mode)
-                    continue;
+                if (this->log_level > msg.mode) continue;
                 logMsg(msg);
             }
             return;
@@ -197,9 +198,13 @@ class LogSystem {
      */
     template <typename... Args>
     inline void addMsg(uint8_t mode, const char *fun, const char *file,
-                       size_t line, Args &&...message) {
+                       size_t line, std::thread::id thread_id,
+                       Args &&...message) {
         auto data = toString(message...);
-        Msg new_msg{mode, fun, file, line, data};
+        std::ostringstream oss;
+        oss << thread_id;
+        std::string thread_id_str = oss.str();
+        Msg new_msg{mode, fun, file, line, thread_id_str, data};
         std::lock_guard<std::mutex> lock(mutex_);
         msgs_.push_back(new_msg);
         return;
@@ -232,7 +237,7 @@ class LogSystem {
             return -1;
     }
 
-  private:
+ private:
     /**
      * @brief 构造时获取时间
      *
@@ -250,13 +255,14 @@ class LogSystem {
         const char *fun;
         const char *file;
         const size_t line;
+        const std::string thread_id;
         std::string data;
     };
 
 #ifndef CLOSE_COLOR
     // 模式对应的字体颜色
     std::array<uint, KMODE_MAX + 1> modes_{34, 32, 0, 33, 31, 41};
-#endif // !CLOSE_COLOR
+#endif  // !CLOSE_COLOR
 
     // 模式对应开头
     std::array<const char *, KMODE_MAX + 1> out_start_{
@@ -280,7 +286,8 @@ class LogSystem {
      *
      * @return string 返回的字符串结果
      */
-    template <typename... Args> inline std::string toString(Args &&...args) {
+    template <typename... Args>
+    inline std::string toString(Args &&...args) {
         std::stringstream ss;
         ss << std::fixed << std::setprecision(2);
         ((ss << args), ...);
@@ -299,12 +306,11 @@ class LogSystem {
      * @return string 返回的字符串结果
      */
     inline std::string format(const Msg &msg, bool is_mode = true,
-                              bool is_file = true, bool is_fun = true,
-                              bool is_time = true) {
+                              bool is_time = true, bool is_thread_id = true,
+                              bool is_file = true, bool is_fun = true) {
         std::stringstream ss;
 
-        if (is_mode)
-            ss << out_start_[msg.mode];
+        if (is_mode) ss << out_start_[msg.mode];
 
         if (is_time) {
             const auto now = std::chrono::system_clock::now();
@@ -322,19 +328,24 @@ class LogSystem {
             show_data_len = msg.data.length();
         }
 
-        ss << std::left << std::setfill(' ') << std::setw(show_data_len)
-           << msg.data;
+        setMsgW(ss, show_data_len);
+        ss << msg.data;
+
+        if (is_thread_id) ss << msg.thread_id + "    ";
 
         if (is_file) {
             std::string file_name;
             file_name += msg.file;
             file_name += ':';
             file_name += std::to_string(msg.line);
-            ss << std::left << std::setw(50) << file_name;
+            setMsgW(ss, 50);
+            ss << file_name;
         }
 
-        if (is_fun)
-            ss << std::left << std::setw(100) << msg.fun;
+        if (is_fun) {
+            setMsgW(ss, 100);
+            ss << msg.fun;
+        }
 
         ss << '\n';
         return ss.str();
@@ -350,19 +361,21 @@ class LogSystem {
 
 #ifndef CLOSE_COLOR
         LOG_SET(modes_[msg.mode]);
-#endif // !CLOSE_COLOR
+#endif  // !CLOSE_COLOR
 
         std::cout << format(msg, log_mode[0], log_mode[1], log_mode[2],
-                            log_mode[3]);
+                            log_mode[3], log_mode[4]);
 
 #ifndef CLOSE_COLOR
         LOG_SET(0);
-#endif // !CLOSE_COLOR
+#endif  // !CLOSE_COLOR
 
         // 最高等级报错则退出程序
-        if (msg.mode != KMODE_MAX)
-            return;
-        exit(-1);
+        if (msg.mode != KMODE_MAX) return;
+        {
+            saveStackMsg();
+            exit(-1);
+        }
         return;
     }
 
@@ -383,6 +396,25 @@ class LogSystem {
     }
 
     /**
+     * @brief 写入日志文件
+     *
+     * @return Fatal的错误码
+     */
+    inline size_t saveStackMsg() { return 0; }
+
+    /**
+     * @brief 设置信息宽度
+     *
+     * @param ss 信息流
+     * @param len 宽度
+     * @param fill_c 填充的字符/可选
+     */
+    inline void setMsgW(std::stringstream &ss, size_t len, char fill_c = ' ') {
+        ss << std::left << std::setfill(fill_c) << std::setw(len);
+        return;
+    }
+
+    /**
      * @brief 得到字符串内非正常字母数字的数量
      *
      * @param str 字符串
@@ -392,8 +424,7 @@ class LogSystem {
         size_t nums = 0;
         for (auto c : str) {
             // 是在正常字母和数字
-            if (c >= 33 && c <= 126)
-                continue;
+            if (c >= 33 && c <= 126) continue;
             ++nums;
         }
         // utf8中中文占3个字节
@@ -403,4 +434,4 @@ class LogSystem {
 
 static auto log_system_ptr = LogSystem::getInstance();
 
-#endif // !INCLUDE_LOG_SYSTEM_HPP_
+#endif  // !INCLUDE_LOG_SYSTEM_HPP_
